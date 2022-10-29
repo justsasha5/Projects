@@ -1,0 +1,35 @@
+What was done for this project in SQLite: 
+(including queries executed)
+
+#1.	Create database in SQLite
+#2.	Import CSV file 
+
+#3.	Clean table by removing column “PERSONS”
+ALTER TABLE vaccine DROP COLUMN PERSONS
+
+#4.	Pull column with another name. 
+SELECT TOTAL_VACCINATIONS AS VAC FROM VACCINE
+
+#5.	Answered question how many vaccinations on average happened in each country per one vaccine type used in that country
+SELECT TOTAL_VACCINATIONS/NUMBER_VACCINES_TYPES_USED AS AVERAGEVAC FROM Vaccine
+
+#6.	Add column from (5.) above to our table 
+UPDATE vaccine 
+SET AVERAGEVAC = TOTAL_VACCINATIONS/NUMBER_VACCINES_TYPES_USED
+SELECT * FROM VACCINE
+
+#7.	Find maximum and average
+select max(TOTAL_VACCINATIONS), COUNTRY from Vaccine
+select avg(DEATHS) from Vaccine
+
+#8.	Delete rows under “DEATHS” column that has value NULL and N/As 
+#9.	Select “TOTAL_VACCINATIONS” group and order it 
+DELETE FROM Vaccine
+WHERE DEATHS LIKE '%N/A' OR NULL
+select TOTAL_VACCINATIONS, NUMBER_VACCINES_TYPES_USED, DEATHS from Vaccine GROUP BY NUMBER_VACCINES_TYPES_USED ORDER BY DEATHS DESC
+
+#10 Rename column completely in the table
+ALTER TABLE vaccine 
+RENAME COLUMN TOTAL_VACCINATIONS TO TVAC
+
+
